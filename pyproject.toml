@@ -1,0 +1,32 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "data_scarcity"
+version = "0.0.1"
+description = "Hybrid Transfer Learning and Probabilistic Modeling for Supply Chain Optimization in Data-Scarce Environments."
+authors = [
+  { name = "Jean-Luc Mupasa" },
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License"
+]
+requires-python = "==3.11.11"
+
+
+[tool.ruff]
+line-length = 99
+src = ["data_scarcity"]
+include = ["pyproject.toml", "data_scarcity/**/*.py"]
+
+[tool.ruff.lint]
+extend-select = ["I"]  # Add import sorting
+
+[tool.ruff.lint.isort]
+known-first-party = ["data_scarcity"]
+force-sort-within-sections = true
+
