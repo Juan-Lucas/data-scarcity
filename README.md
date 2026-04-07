@@ -1,61 +1,64 @@
-# data-scarcity
+# Supply Chain Optimization under Data Scarcity
 
-<a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
-    <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
-</a>
+Projet de recherche sur l’optimisation de la supply chain dans des contextes où les données historiques sont rares, par exemple pour des PME, des marchés émergents ou le lancement d’un nouveau produit.
 
-Hybrid Transfer Learning and Probabilistic Modeling for Supply Chain Optimization in Data-Scarce Environments.
+L’approche combine deux briques principales:
 
-## Project Organization
+- `Transfer Learning` pour réutiliser un modèle pré-entraîné sur un grand jeu de données source.
+- `Probabilistic Modeling` pour quantifier l’incertitude et produire des décisions prudentes quand l’historique est limité.
 
+## Pourquoi ce sujet
+
+Le problème central est la rareté des données. Dans ce contexte, les modèles classiques sur-apprennent vite et généralisent mal. L’objectif du projet est donc de montrer qu’un modèle hybride, adapté à peu de données, peut mieux soutenir des décisions de prévision de demande, de stock et d’approvisionnement.
+
+Ce sujet est bien aligné avec le workshop `AI & Mathematical Methods for Real-world Impact`, car il vise explicitement des environnements à ressources et données limitées.
+
+## Idée méthodologique
+
+- `Source domain`: grand dataset logistique ou de demande, utilisé pour apprendre des représentations générales.
+- `Target domain`: petit dataset local ou réduit, utilisé pour simuler la rareté des données.
+- `Côté maths`: cadre bayésien ou autre modèle probabiliste pour estimer une distribution de sortie plutôt qu’une valeur unique.
+
+## Datasets à explorer
+
+Pistes utiles pour démarrer:
+
+- Jeux de données de demande ou de ventes retail sur Kaggle ou UCI.
+- `M5 Forecasting - Walmart` comme grand dataset source pour simuler le transfert d’apprentissage.
+- Un petit dataset local ou un sous-échantillon pour reproduire le cas `data-scarce`.
+
+Mots-clés de recherche:
+
+- `demand forecasting small dataset`
+- `supply chain inventory data sparse`
+- `transfer learning for time series forecasting`
+
+## Structure visée de l’article
+
+Le template AI2M4RI suit une structure simple: `Front matter`, `Main Text`, `Acknowledgements`, `Appendix`, puis `References`.
+
+Pour cet article, la trame utile est la suivante:
+
+1. `Title`, auteurs, affiliations, abstract et keywords.
+2. `Main Text` avec:
+	- `Introduction`
+	- `Structure` ou contexte du problème
+	- `Tables` si nécessaire pour résumer les données ou résultats
+	- `Figures/Illustrations` pour les schémas du pipeline
+	- `Equations` pour le cadre probabiliste
+	- `Section headings` pour organiser la méthodologie et les expériences
+3. `Acknowledgements` pour remercier les contributeurs ou sources de données.
+4. `Appendix` si des détails techniques ou supplémentaires doivent être ajoutés.
+5. `References` au format numérique du template.
+
+## Organisation du dépôt
+
+```text
+data/
+data_scarcity/
+docs/
+models/
+notebooks/
+reports/
+tests/
 ```
-├── LICENSE            <- Open-source license if one is chosen
-├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
-├── README.md          <- The top-level README for developers using this project.
-├── data
-│   ├── external       <- Data from third party sources.
-│   ├── interim        <- Intermediate data that has been transformed.
-│   ├── processed      <- The final, canonical data sets for modeling.
-│   └── raw            <- The original, immutable data dump.
-│
-├── docs               <- A default mkdocs project; see www.mkdocs.org for details
-│
-├── models             <- Trained and serialized models, model predictions, or model summaries
-│
-├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                         the creator's initials, and a short `-` delimited description, e.g.
-│                         `1.0-jqp-initial-data-exploration`.
-│
-├── pyproject.toml     <- Project configuration file with package metadata for 
-│                         data_scarcity and configuration for tools like black
-│
-├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-│
-├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   └── figures        <- Generated graphics and figures to be used in reporting
-│
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
-│
-├── setup.cfg          <- Configuration file for flake8
-│
-└── data_scarcity   <- Source code for use in this project.
-    │
-    ├── __init__.py             <- Makes data_scarcity a Python module
-    │
-    ├── config.py               <- Store useful variables and configuration
-    │
-    ├── dataset.py              <- Scripts to download or generate data
-    │
-    ├── features.py             <- Code to create features for modeling
-    │
-    ├── modeling                
-    │   ├── __init__.py 
-    │   ├── predict.py          <- Code to run model inference with trained models          
-    │   └── train.py            <- Code to train models
-    │
-    └── plots.py                <- Code to create visualizations
-```
-
---------
-
