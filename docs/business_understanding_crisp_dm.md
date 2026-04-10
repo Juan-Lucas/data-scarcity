@@ -2,119 +2,129 @@
 
 ## 1. Contexte métier
 
-Ce projet vise l’optimisation de la supply chain dans des contextes contraints en données (PME, nouveaux produits, marchés émergents).
+Le projet est ancre sur un cas d’usage unique: lancement de nouveau produit dans une chaine retail.
 
-Dans ces contextes, les décisions de stock et d’approvisionnement sont souvent prises avec peu d’historique fiable, ce qui augmente:
-- le risque de rupture,
-- le surstock,
-- les coûts opérationnels,
-- l’incertitude dans la planification.
+Au demarrage d’un lancement, l’historique du nouveau produit est quasi nul (quelques semaines), alors que les decisions d’achat fournisseur doivent etre prises immediatement.
 
-Le projet propose une approche hybride combinant:
-- le transfert d’apprentissage (Transfer Learning),
-- la modélisation probabiliste (quantification de l’incertitude).
+Les consequences metier sont directes:
+- rupture en rayon si la demande est sous-estimee,
+- surstock et demarque si la demande est surestimee,
+- immobilisation de tresorerie sur un produit encore incertain,
+- degradation du taux de service lors des premieres semaines critiques.
+
+L’idee est d’exploiter les donnees de produits similaires (source) pour ameliorer la prevision du nouveau produit (cible), via:
+- transfert d’apprentissage (Transfer Learning),
+- modelisation probabiliste (quantification de l’incertitude).
 
 ## 2. Problème métier
 
-Les approches classiques de prévision de demande demandent généralement des volumes de données importants. Lorsque les données sont rares, ces modèles sur-apprennent et produisent des prédictions fragiles.
+Les modeles classiques de prevision de demande supposent un historique suffisamment long. Dans un lancement de nouveau produit, cette hypothese est violee.
 
-Le besoin métier est de fournir des prévisions exploitables même en faible volume de données, avec une estimation explicite du niveau de confiance pour améliorer les décisions de stock.
+Le probleme metier a resoudre est:
+- fournir des previsions exploitables avec tres peu d’observations,
+- estimer explicitement l’incertitude (intervalle/quantiles),
+- transformer cette incertitude en decisions de stock prudentes et actionnables.
+
+Le besoin prioritaire n’est pas seulement d’avoir une prediction ponctuelle, mais d’aider a decider le niveau de stock initial et son ajustement hebdomadaire pendant les 8 a 12 premieres semaines.
 
 ## 3. Objectifs métier
 
 ### 3.1 Objectif principal
 
-Améliorer la qualité des décisions supply chain (stock, approvisionnement, planification) dans les environnements data-scarce.
+Ameliorer la qualite des decisions de stock et d’approvisionnement pour un nouveau produit en phase de lancement, malgre un historique limite.
 
 ### 3.2 Objectifs spécifiques
 
-- Concevoir une approche de prévision adaptée aux faibles volumes de données.
-- Réduire les erreurs de prévision par rapport à une baseline classique.
-- Produire des sorties probabilistes (intervalles/quantiles) pour piloter le risque.
-- Démontrer la valeur de l’approche sur un scénario réaliste de PME ou de marché émergent.
+- Concevoir une approche adaptee au regime low-data des premieres semaines de vie produit.
+- Reduire l’erreur de prevision vs baseline non transferee.
+- Produire des previsions probabilistes (quantiles/intervalle) utilisables pour definir un stock de securite.
+- Demontrer la pertinence sur un protocole reproductible de type M5: produit cible sous-echantillonne simulant un lancement.
 
 ## 4. Critères de succès métier
 
-Les critères de succès métier pour la première itération sont:
+Les criteres de succes metier pour la premiere iteration sont:
 
-- Réduction mesurable de l’erreur de prévision versus baseline.
-- Amélioration de la robustesse des décisions en présence d’incertitude.
-- Capacité à prioriser des décisions prudentes quand l’incertitude augmente.
-- Clarté des résultats pour une interprétation par des profils non experts IA.
+- Reduction mesurable de l’erreur de prevision vs baseline sur la fenetre de lancement.
+- Baisse du risque de rupture pendant les premieres semaines.
+- Baisse du surstock moyen et de la demarque associee.
+- Regles de decision claires pour profils metier non experts IA (ex: quantile 0.8 pour reappro prudent).
 
 ## 5. Critères de succès data science (liés au métier)
 
-- Performance supérieure à une baseline simple (ex: modèle classique non transféré).
-- Qualité de calibration des prédictions probabilistes.
-- Stabilité du modèle quand la taille du dataset cible est très faible.
-- Reproductibilité des résultats (pipeline, paramètres, protocoles).
+- Performance superieure a une baseline non transferee (MAE, RMSE, ou WAPE selon setup).
+- Bonne calibration probabiliste (couverture des intervalles proche du niveau nominal).
+- Stabilite lorsque le nombre de points cibles est fortement reduit.
+- Reproductibilite complete (pipeline, seeds, protocole de sous-echantillonnage).
 
 ## 6. Périmètre du projet
 
 ### Inclus
 
-- Prévision de demande sur jeux de données retail/supply chain.
-- Scénario de transfert: grand dataset source vers petit dataset cible.
-- Estimation de l’incertitude via approche probabiliste.
-- Comparaison avec baseline.
+- Prevision de demande d’un nouveau produit sur horizon court (lancement).
+- Transfert de connaissances depuis produits/categories similaires vers produit cible.
+- Estimation d’incertitude pour piloter stock de securite et niveau de service.
+- Evaluation comparative baseline vs transfert vs transfert probabiliste.
+- Reproduction experimentale sur M5 avec sous-echantillonnage controle du produit cible.
 
 ### Exclu (phase actuelle)
 
-- Déploiement production temps réel.
-- Optimisation multi-échelons complète de bout en bout.
-- Intégration ERP/WMS opérationnelle.
+- Deploiement temps reel en production.
+- Optimisation end-to-end de tout le reseau multi-echelon.
+- Integration operationnelle ERP/WMS.
+- Pricing, promotion planning, et contraintes marketing avancees.
 
 ## 7. Hypothèses de travail
 
-- Un dataset source plus large peut transférer une information utile vers le dataset cible.
-- Le dataset cible représente un contexte local pertinent mais faible en volume.
-- La quantification d’incertitude apporte une valeur décisionnelle supérieure à une simple prédiction ponctuelle.
+- Des series de produits similaires contiennent des patterns transferables utiles au nouveau produit.
+- Le transfert reduit l’erreur plus vite qu’un apprentissage uniquement sur le faible historique cible.
+- La quantification d’incertitude ameliore la decision de stock vs prediction ponctuelle seule.
+- Le protocole de sous-echantillonnage M5 approxime de facon acceptable un contexte de lancement reel.
 
 ## 8. Contraintes
 
-- Données limitées et potentiellement bruitées.
-- Hétérogénéité entre domaine source et domaine cible.
-- Temps et ressources de calcul raisonnables (cadre académique/prototypage).
-- Exigence de lisibilité scientifique pour article workshop.
+- Historique cible tres court, potentiellement bruite et non stationnaire.
+- Risque d’ecart de distribution entre produits source et produit cible.
+- Budget de calcul limite (cadre academique, prototypage rapide).
+- Contraintes de publication workshop: anonymat, 6 pages, reproductibilite et clarte.
 
 ## 9. Risques et plans de mitigation
 
-- Risque: transfert négatif (source trop différente du cible).
-  - Mitigation: tester plusieurs stratégies de fine-tuning et comparer à baseline.
+- Risque: transfert negatif (produits source trop differents du produit lance).
+  - Mitigation: selection de groupes source par similarite + ablations + comparaison stricte a baseline.
 
-- Risque: overfitting sur le petit dataset cible.
-  - Mitigation: validation stricte, régularisation, early stopping, simplification modèle.
+- Risque: overfitting sur les premieres semaines du produit cible.
+  - Mitigation: validation temporelle, regularisation, early stopping, modeles plus simples en reference.
 
-- Risque: incertitude mal calibrée.
-  - Mitigation: évaluer calibration (couverture d’intervalles, métriques dédiées).
+- Risque: incertitude mal calibree donc decisions de stock trompeuses.
+  - Mitigation: evaluation de calibration (coverage, interval score) et recalibration si necessaire.
 
-- Risque: dataset cible insuffisant pour conclure.
-  - Mitigation: protocoles de sous-échantillonnage contrôlés et analyse de sensibilité.
+- Risque: protocole de simulation trop eloigne du reel.
+  - Mitigation: multiplier les scenarios de sous-echantillonnage (fenetre courte, bruit, chocs) et rapporter robustesse.
 
 ## 10. Parties prenantes
 
-- Équipe projet (modélisation, expérimentation, rédaction).
-- Encadrant(s) académique(s).
-- Communauté workshop AI2M4RI.
-- Cible d’impact: PME et organisations opérant en contexte data-scarce.
+- Equipe projet (modelisation, experimentation, redaction).
+- Encadrant(s) academique(s).
+- Role metier simule: demand planner / approvisionneur retail.
+- Communaute workshop AI2M4RI.
 
 ## 11. Valeur attendue
 
-- Méthodologie réplicable pour contextes à faibles ressources.
-- Meilleure prise de décision sous incertitude.
-- Contribution scientifique appliquée au thème AI + méthodes mathématiques à impact réel.
+- Cadre replicable pour prevoir un nouveau produit avec peu de donnees.
+- Reduction conjointe du risque de rupture et du surstock au lancement.
+- Contribution scientifique sur transfer learning probabiliste en contexte data-scarce.
 
 ## 12. Livrables de la phase Business Understanding
 
-- Définition claire du problème métier et des objectifs.
-- Critères de succès métier et data science.
-- Périmètre, hypothèses, contraintes, risques.
-- Cadre d’évaluation orienté impact opérationnel.
+- Formulation du cas d’usage cible: lancement nouveau produit retail.
+- Definition des KPI metier (rupture, surstock, niveau de service) et data science (erreur, calibration).
+- Hypotheses et risques relies explicitement au transfert et a l’incertitude.
+- Protocole d’evaluation preliminaire sur M5 sous-echantillonne.
 
 ## 13. Décision de passage à la phase suivante (Data Understanding)
 
 Le passage en phase 2 CRISP-DM est validé si:
-- le problème métier est correctement formulé,
-- les critères de succès sont mesurables,
-- le périmètre est clair,
-- les risques principaux sont identifiés avec un plan de mitigation.
+- le cas d’usage lancement est formule de maniere non ambigue,
+- les KPI metier et data science sont mesurables et relies aux decisions,
+- le protocole de simulation low-data sur M5 est defini,
+- les risques critiques (transfert negatif, calibration, overfitting) ont un plan de mitigation testable.

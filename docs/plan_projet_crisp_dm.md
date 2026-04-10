@@ -2,11 +2,11 @@
 
 ## 1. Objectif du projet
 
-Ce projet vise à optimiser la supply chain dans un contexte de rareté des données, en combinant:
+Ce projet vise à optimiser la supply chain dans un contexte de lancement de nouveau produit retail avec peu d’historique, en combinant:
 - le Transfer Learning pour réutiliser les connaissances d’un modèle entraîné sur un grand jeu de données,
 - la modélisation probabiliste pour représenter l’incertitude et prendre des décisions plus prudentes.
 
-Le but final est de produire un article scientifique court, structuré selon le template AI2M4RI / Procedia Computer Science, avec une expérimentation crédible sur un cas de data scarcity.
+Le but final est de produire un article scientifique court, structuré selon le template AI2M4RI / Procedia Computer Science, avec une expérimentation crédible sur un cas de lancement (simulation low-data sur M5).
 
 ## 2. Structure du projet
 
@@ -29,8 +29,8 @@ Le projet suit les 6 étapes CRISP-DM. Pour chaque phase, on précise l’object
 Objectif: comprendre le problème métier et définir ce que le projet doit résoudre.
 
 Actions prévues:
-- Décrire le problème de la rareté des données en supply chain.
-- Clarifier les impacts métier: rupture de stock, surstock, coûts, incertitude.
+- Décrire le problème du lancement de nouveau produit avec historique très court.
+- Clarifier les impacts métier: rupture de stock, surstock, coûts, niveau de service, incertitude.
 - Définir les objectifs scientifiques et opérationnels.
 - Identifier les critères de succès et les contraintes.
 
@@ -56,7 +56,7 @@ Actions prévues:
 - Identifier un grand dataset source et un petit dataset cible.
 - Explorer les variables, la structure temporelle et les manques de données.
 - Vérifier la cohérence entre domaine source et domaine cible.
-- Étudier la taille minimale de données utile pour les expériences.
+- Étudier la taille minimale de données utile pour les expériences de démarrage produit.
 
 Livrables:
 - inventaire des datasets,
@@ -76,7 +76,7 @@ Objectif: préparer les données pour l’entraînement et l’évaluation.
 
 Actions prévues:
 - Nettoyer les données.
-- Construire des sous-ensembles expérimentaux de petite taille.
+- Construire des sous-ensembles expérimentaux de petite taille simulant les premières semaines d’un nouveau produit.
 - Créer les variables nécessaires pour le modèle.
 - Séparer correctement les jeux d’entraînement, validation et test.
 - Préparer les entrées du modèle source et du modèle cible.
@@ -98,7 +98,7 @@ Objectif: construire les modèles et comparer les approches.
 
 Actions prévues:
 - Entraîner un modèle source sur un gros dataset.
-- Appliquer le transfert d’apprentissage vers le petit dataset cible.
+- Appliquer le transfert d’apprentissage vers le petit dataset cible (nouveau produit).
 - Ajouter une couche ou un cadre probabiliste pour quantifier l’incertitude.
 - Construire une baseline classique sans transfert.
 - Comparer les performances des approches.
@@ -127,7 +127,7 @@ Actions prévues:
 - Comparer IA classique vs IA avec transfert + probabilités.
 - Évaluer la robustesse sur peu de données.
 - Analyser la calibration ou l’incertitude si applicable.
-- Vérifier l’impact potentiel sur les décisions de stock.
+- Vérifier l’impact potentiel sur les décisions de stock (rupture, surstock, niveau de service).
 
 Livrables:
 - tableaux de résultats,
@@ -181,7 +181,7 @@ Correspondance Trello:
 
 - préparer les données,
 - entraîner le modèle source,
-- simuler le petit dataset,
+- simuler un scénario de lancement via sous-échantillonnage M5,
 - implémenter le transfert et la couche probabiliste,
 - produire les premières figures.
 
@@ -202,11 +202,11 @@ Correspondance Trello:
 
 ## 5. Livrables attendus par phase
 
-- **CRISP-DM 1 - Business Understanding**: cadrage et objectifs.
-- **CRISP-DM 2 - Data Understanding**: inventaire et diagnostic des datasets.
-- **CRISP-DM 3 - Data Preparation**: données nettoyées et prêtes.
+- **CRISP-DM 1 - Business Understanding**: cadrage du cas "lancement nouveau produit" et objectifs.
+- **CRISP-DM 2 - Data Understanding**: inventaire source/cible et diagnostic pour simulation low-data.
+- **CRISP-DM 3 - Data Preparation**: données nettoyées et sous-échantillonnage contrôlé des premières semaines.
 - **CRISP-DM 4 - Modeling**: baseline, transfert et modèle probabiliste.
-- **CRISP-DM 5 - Evaluation**: résultats, comparaison et interprétation.
+- **CRISP-DM 5 - Evaluation**: résultats, calibration, impact métier (rupture/surstock/service).
 - **CRISP-DM 6 - Deployment**: article final et soumission.
 
 ## 6. Fichier de référence
