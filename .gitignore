@@ -189,3 +189,20 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Personal writing notes (do not commit)
+docs/explication_*.md
+docs/analyse_resultats_experimental_setup.md
+docs/explication_mathematical_framework.md
+docs/explication_structure_code.md
+docs/BUILD_INSTRUCTIONS.md
+
+# LaTeX build artifacts for the AI2M4RI report
+reports/AI2M4RI_PROCS_Template/AI2M4RI_PROCS_Template.aux
+reports/AI2M4RI_PROCS_Template/AI2M4RI_PROCS_Template.bbl
+reports/AI2M4RI_PROCS_Template/AI2M4RI_PROCS_Template.blg
+reports/AI2M4RI_PROCS_Template/AI2M4RI_PROCS_Template.log
+reports/AI2M4RI_PROCS_Template/AI2M4RI_PROCS_Template.out
+reports/AI2M4RI_PROCS_Template/AI2M4RI_PROCS_Template.pdf
+reports/AI2M4RI_PROCS_Template/AI2M4RI_PROCS_Template.spl
+reports/AI2M4RI_PROCS_Template/AI2M4RI_PROCS_Template.synctex.gz

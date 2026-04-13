@@ -18,6 +18,13 @@ Le scénario expérimental de référence repose sur M5 avec sous-échantillonna
 
 Le manuscrit final doit rester court, clair, anonyme à la soumission initiale, et tenir dans la limite de 6 pages, références comprises.
 
+## 1.1 Structure du dépôt (fichiers utiles)
+
+- `reports/AI2M4RI_PROCS_Template/AI2M4RI_PROCS_Template.tex` : fichier principal de rédaction de l’article.
+- `docs/business_understanding_crisp_dm.md` : cadrage métier (phase 1 CRISP-DM).
+- `docs/glossaire.md` : terminologie et cohérence des notations.
+- `notebooks/` et `data_scarcity/` : expérimentations et implémentation.
+
 ## 2. Contraintes de rédaction imposées par EasyChair
 
 Les règles principales à respecter sont:
@@ -53,6 +60,42 @@ Le papier suivra la structure suivante:
 
 5. `References`
    - bibliographie au style attendu par le template.
+
+## 3.1 Règles de rédaction conformes au template AI2M4RI_PROCS_Template.tex
+
+- Écrire le manuscrit directement dans `reports/AI2M4RI_PROCS_Template/AI2M4RI_PROCS_Template.tex`.
+- Compiler avec PDFLaTeX en priorité.
+- Ne pas modifier la mise en forme du template (styles, marges, logique du document).
+- Conserver le format de soumission anonyme pour la version EasyChair.
+- Respecter strictement la limite de 6 pages, références et figures incluses.
+- Intégrer les tableaux et figures dans le texte avec légendes conformes.
+- Vérifier la cohérence citations <-> bibliographie avant export PDF.
+
+## 3.2 Structure détaillée recommandée pour cet article
+
+1. `Front matter`
+   - titre,
+   - version anonyme à la soumission,
+   - résumé,
+   - mots-clés.
+
+2. `Main Text`
+   - Introduction (problème métier et contributions),
+   - Related Work,
+   - Mathematical Framework,
+   - Proposed Architecture / Methodology,
+   - Experimental Setup,
+   - Results and Discussion,
+   - Conclusion.
+
+3. `Acknowledgements`
+   - en version finale uniquement si nécessaire.
+
+4. `References`
+   - style conforme au template.
+
+5. `Appendix`
+   - seulement si indispensable.
 
 ## 4. Méthodologie CRISP-DM
 
@@ -234,3 +277,11 @@ Cartes associées:
 - les figures finales,
 - les documents de cadrage CRISP-DM,
 - le PDF final prêt pour EasyChair.
+
+## 9. Checklist finale avant soumission
+
+- PDF final en 6 pages maximum (références et figures incluses).
+- Version anonyme pour EasyChair (pas de noms d’auteurs/affiliations).
+- Figures et tableaux lisibles, légendes conformes, insertion dans le texte.
+- Toutes les citations du texte présentes dans la bibliographie.
+- Compilation LaTeX sans erreur bloquante.
