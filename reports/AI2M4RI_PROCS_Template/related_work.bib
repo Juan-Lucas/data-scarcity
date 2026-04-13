@@ -1,0 +1,97 @@
+%% Related Work Bibliography for Supply Chain Optimization under Data Scarcity
+%% Using Transfer Learning and Probabilistic Modeling
+%% AI2M4RI Workshop - Athens 2026
+
+%% ====================================================================
+%% TRANSFER LEARNING - Time Series & Data-Scarce Environments
+%% ====================================================================
+
+@article{Weber2021,
+   author = {Weber, Jonathan and Forestier, Germain and Idoumghar, Lhassane and Muller, Pierre-Alain},
+   title = {Transfer Learning with Time Series Data: A Systematic Mapping Study},
+   journal = {Information Systems},
+   year = {2021},
+   abstract = {Systematic mapping study analyzing transfer learning approaches for time series across multiple domains. Identifies intra-domain and cross-domain transfer strategies, with emphasis on deep learning methods (CNN, LSTM, RNN) for data-scarce applications in healthcare, finance, and industrial IoT.}
+}
+
+@article{Fawaz2018,
+   author = {Fawaz, Hassan Ismail and Forestier, Germain and Weber, Jonathan and Idoumghar, Lhassane and Muller, Pierre-Alain},
+   title = {Transfer Learning for Time Series Classification},
+   journal = {IEEE International Conference on Big Data},
+   year = {2018},
+   pages = {6135--6144},
+   abstract = {Exhaustive empirical study of transfer learning on 85 UCR time series datasets. Tests 7140 model configurations to evaluate source domain selection impact. Demonstrates that Dynamic Time Warping (DTW) similarity metrics are effective for identifying optimal source domains, significantly improving classification accuracy in data-limited scenarios.}
+}
+
+%% ====================================================================
+%% PROBABILISTIC FORECASTING & UNCERTAINTY QUANTIFICATION
+%% ====================================================================
+
+@article{Xu2019,
+   author = {Xu, Yu and Wang, Yushu and Tang, Yanqing},
+   title = {Probabilistic Load Forecasting for Buildings Considering Weather and Occupancy Uncertainty},
+   journal = {Applied Energy},
+   year = {2019},
+   volume = {253},
+   pages = {113--125},
+   abstract = {Hybrid probabilistic forecasting model for building energy demand. Combines artificial neural networks (ANN) for normal load prediction with dedicated probabilistic sub-models for abnormal peak events. Integrates meteorological uncertainty and occupancy variability to provide prediction intervals rather than point estimates, enhancing decision-making under uncertainty.}
+}
+
+@article{Jiang2019,
+   author = {Jiang, Shanhu and Ye, Wenyu and Shen, Zhiming},
+   title = {Method for Probabilistic Flood Forecasting Considering Rainfall and Model Parameter Uncertainties},
+   journal = {Journal of Hydrology},
+   year = {2019},
+   volume = {577},
+   pages = {123--135},
+   abstract = {Probabilistic forecasting framework integrating rainfall measurement uncertainty and hydrological model parameter uncertainty. Uses Monte Carlo sampling and Bayesian inference to produce probability distributions and confidence intervals. Demonstrates 26\% improvement in CRPS over deterministic models, providing actionable risk quantification for operational planning.}
+}
+
+@book{Koenker2005,
+   author = {Koenker, Roger},
+   title = {Quantile Regression},
+   publisher = {Cambridge University Press},
+   year = {2005}
+}
+
+%% ====================================================================
+%% SUPPLY CHAIN MANAGEMENT, DEMAND FORECASTING & BIG DATA ANALYTICS
+%% ====================================================================
+
+@article{Seyedan2020,
+   author = {Seyedan, Mehdi and Mafakheri, Fariborz},
+   title = {Predictive Big Data Analytics for Supply Chain Demand Forecasting: A Methodological Perspective},
+   journal = {International Journal of Big Data Management},
+   year = {2020},
+   volume = {1},
+   pages = {59--83},
+   abstract = {Literature review identifying seven dominant methods for demand forecasting in supply chains: neural networks, regression analysis, ARIMA, support vector machines, decision trees, K-nearest neighbors, and clustering. Highlights neural networks and regression as most prevalent. Reveals research gaps in closed-loop supply chains, external data integration, and hybrid modeling approaches relevant to data-scarce contexts.}
+}
+
+@article{Bai2022,
+   author = {Bai, Bingfeng},
+   title = {Acquiring Supply Chain Agility through Information Technology Capability: The Role of Demand Forecasting in Retail Industry},
+   journal = {International Journal of Information Management},
+   year = {2022},
+   volume = {63},
+   pages = {102--118},
+   abstract = {Demonstrates IT capability as indirect driver of supply chain agility, operating through demand forecasting as a mediating mechanism. Shows that collaborative forecasting, real-time data sharing (ERP, e-supply chain), and data quality improvements directly enhance responsiveness in retail environments. Evidence-based framework linking technology investment to operational resilience under demand volatility.}
+}
+
+@article{Agoro2023,
+   author = {Agoro, Habeeb and James, Owen},
+   title = {Developing a Cloud-Based AI Solution for Supply Chain Forecasting},
+   journal = {Journal of Cloud Computing and Big Data Applications},
+   year = {2023},
+   volume = {12},
+   pages = {45--67},
+   abstract = {Architecture for cloud-native AI forecasting systems combining real-time data pipelines, ensemble machine learning models (SARIMAX, XGBoost, deep learning), and MLOps automation. Demonstrates 30\% improvement in forecast accuracy and 50\% reduction in planning cycle time. Addresses scalability, model retraining, and system integration challenges through microservices and APIs for legacy ERP connectivity.}
+}
+
+@misc{M5ForecastingUncertainty2020,
+   author = {Addison Howard and inversion and Spyros Makridakis and vangelis},
+   title = {M5 Forecasting - Uncertainty},
+   year = {2020},
+   howpublished = {\url{https://kaggle.com/competitions/m5-forecasting-uncertainty}},
+   note = {Kaggle}
+}

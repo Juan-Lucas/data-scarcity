@@ -3,6 +3,8 @@ pip
 pytest
 python-dotenv
 ruff
+scikit-learn
+matplotlib
 tqdm
 typer
 -e .
