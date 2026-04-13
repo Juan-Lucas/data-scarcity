@@ -1,8 +1,8 @@
+from collections import defaultdict
 import csv
 import json
-import random
-from collections import defaultdict
 from pathlib import Path
+import random
 
 from loguru import logger
 import typer
@@ -17,7 +17,8 @@ def main(
     input_path: Path = RAW_DATA_DIR / "m5" / "sales_train_validation.csv",
     source_output_path: Path = PROCESSED_DATA_DIR / "source_dataset.csv",
     target_output_path: Path = PROCESSED_DATA_DIR / "target_dataset.csv",
-    metadata_output_path: Path = PROCESSED_DATA_DIR / "experimental_setup_metadata.json",
+    metadata_output_path: Path = PROCESSED_DATA_DIR
+    / "experimental_setup_metadata.json",
     series_col: str = "series_id",
     time_col: str = "timestamp",
     target_col: str = "y",
@@ -78,7 +79,9 @@ def main(
         if len(srows) >= min_points_per_series
     }
     if len(valid_grouped) < 2:
-        raise ValueError("Need at least 2 valid series after filtering to form source and target sets")
+        raise ValueError(
+            "Need at least 2 valid series after filtering to form source and target sets"
+        )
 
     series_ids = sorted(valid_grouped)
     rng = random.Random(seed)

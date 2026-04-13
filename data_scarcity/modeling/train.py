@@ -31,7 +31,9 @@ def main(
     feature_cols = feature_cols_s
 
     if len(x_source) < 2 or len(x_target) < 2:
-        raise ValueError("Need at least 2 rows in source and target train to fit models")
+        raise ValueError(
+            "Need at least 2 rows in source and target train to fit models"
+        )
 
     source_w = _fit_linear_ridge(x_source, y_source, ridge=ridge_lambda)
     target_w = _fit_linear_ridge(x_target, y_target, ridge=ridge_lambda)
@@ -51,7 +53,9 @@ def main(
         if not 0 < q < 1:
             raise ValueError("All quantiles must be in (0,1)")
 
-    transfer_residuals = [y - _predict_row(transfer_w, x) for x, y in zip(x_target, y_target)]
+    transfer_residuals = [
+        y - _predict_row(transfer_w, x) for x, y in zip(x_target, y_target)
+    ]
     residual_quantiles = {str(q): _quantile(transfer_residuals, q) for q in q_levels}
 
     model = {
@@ -97,7 +101,9 @@ def _read_xy(path: Path) -> tuple[list[float], list[float]]:
     with path.open("r", newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         fieldnames = reader.fieldnames or []
-        feature_cols = sorted([c for c in fieldnames if c.startswith("lag_")], key=_lag_sort_key)
+        feature_cols = sorted(
+            [c for c in fieldnames if c.startswith("lag_")], key=_lag_sort_key
+        )
         if not feature_cols:
             raise ValueError(f"No lag features found in {path}")
 
@@ -107,7 +113,9 @@ def _read_xy(path: Path) -> tuple[list[float], list[float]]:
     return feature_cols, x, ys
 
 
-def _fit_linear_ridge(x: list[list[float]], y: list[float], ridge: float) -> list[float]:
+def _fit_linear_ridge(
+    x: list[list[float]], y: list[float], ridge: float
+) -> list[float]:
     phi = [[1.0, *row] for row in x]
     p = len(phi[0])
 

@@ -106,8 +106,14 @@ def main(
     hi = _closest_level(levels, 1 - alpha)
     lower = q_pred[lo]
     upper = q_pred[hi]
-    coverage = sum(1 for y, l, u in zip(y_true, lower, upper) if l <= y <= u) / len(y_true)
-    width = sum(u - l for l, u in zip(lower, upper)) / len(y_true)
+    coverage = sum(
+        1
+        for y_val, lower_bound, upper_bound in zip(y_true, lower, upper)
+        if lower_bound <= y_val <= upper_bound
+    ) / len(y_true)
+    width = sum(
+        upper_bound - lower_bound for lower_bound, upper_bound in zip(lower, upper)
+    ) / len(y_true)
 
     metrics["interval_alpha"] = alpha
     metrics["interval_lower_quantile"] = lo
@@ -121,7 +127,11 @@ def main(
 
     _write_single_run_summary(summary_csv_path, metrics)
 
-    logger.success("Inference complete. Predictions: {} | Metrics: {}", predictions_path, metrics_path)
+    logger.success(
+        "Inference complete. Predictions: {} | Metrics: {}",
+        predictions_path,
+        metrics_path,
+    )
 
 
 def _read_rows(path: Path) -> list[dict[str, str]]:
@@ -165,13 +175,21 @@ def _closest_level(levels: list[float], target: float) -> float:
 def _write_single_run_summary(path: Path, metrics: dict[str, float]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     rows = [
-        {"model": "baseline", "MAE": metrics["mae_baseline"], "RMSE": metrics["rmse_baseline"]},
+        {
+            "model": "baseline",
+            "MAE": metrics["mae_baseline"],
+            "RMSE": metrics["rmse_baseline"],
+        },
         {
             "model": "target_only",
             "MAE": metrics["mae_target_only"],
             "RMSE": metrics["rmse_target_only"],
         },
-        {"model": "transfer", "MAE": metrics["mae_transfer"], "RMSE": metrics["rmse_transfer"]},
+        {
+            "model": "transfer",
+            "MAE": metrics["mae_transfer"],
+            "RMSE": metrics["rmse_transfer"],
+        },
     ]
 
     with path.open("w", newline="", encoding="utf-8") as f:

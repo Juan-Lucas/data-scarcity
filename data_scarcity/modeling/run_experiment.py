@@ -37,7 +37,11 @@ def main(
 
     for history_frac in history_values:
         for lam in lambda_values:
-            logger.info("Running experiment with target_history_fraction={} and lambda={}", history_frac, lam)
+            logger.info(
+                "Running experiment with target_history_fraction={} and lambda={}",
+                history_frac,
+                lam,
+            )
 
             dataset_main(
                 input_path=sales_input_path,
@@ -88,11 +92,9 @@ def main(
     logger.success("Grid experiments complete. Results saved to {}", results_csv_path)
 
 
-
 def _read_json(path: Path) -> dict:
     with path.open("r", encoding="utf-8") as f:
         return json.load(f)
-
 
 
 def _write_csv(path: Path, rows: list[dict[str, float | int]]) -> None:

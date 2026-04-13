@@ -1,11 +1,11 @@
 import csv
-import math
 from dataclasses import dataclass
+import math
 from pathlib import Path
 
 from loguru import logger
-import typer
 from sklearn.ensemble import GradientBoostingRegressor, RandomForestRegressor
+import typer
 
 from data_scarcity.config import PROCESSED_DATA_DIR
 
@@ -28,7 +28,8 @@ def main(
     target_train_features_path: Path = PROCESSED_DATA_DIR / "target_train_features.csv",
     target_test_features_path: Path = PROCESSED_DATA_DIR / "target_test_features.csv",
     results_csv_path: Path = PROCESSED_DATA_DIR / "model_comparison_results.csv",
-    predictions_csv_path: Path = PROCESSED_DATA_DIR / "model_comparison_predictions.csv",
+    predictions_csv_path: Path = PROCESSED_DATA_DIR
+    / "model_comparison_predictions.csv",
     quantiles: str = "0.1,0.5,0.9",
     ridge_alpha: float = 1e-3,
     transfer_lambda: float = 10.0,
@@ -40,7 +41,9 @@ def main(
         raise ValueError("At least one quantile is required")
 
     feature_cols_s, x_source, y_source = _read_xy(source_features_path)
-    feature_cols_t, x_target_train, y_target_train = _read_xy(target_train_features_path)
+    feature_cols_t, x_target_train, y_target_train = _read_xy(
+        target_train_features_path
+    )
     feature_cols_te, x_target_test, y_target_test = _read_xy(target_test_features_path)
 
     if feature_cols_s != feature_cols_t or feature_cols_s != feature_cols_te:
@@ -82,7 +85,6 @@ def main(
     }
 
     results: list[ModelResult] = []
-    pred_rows: list[dict[str, str]] = []
 
     predictions_by_model: dict[str, list[float]] = {}
     interval_bounds_by_model: dict[str, tuple[list[float], list[float]]] = {}
@@ -102,7 +104,10 @@ def main(
             name=model_name,
             mae=_mae(y_target_test, test_pred),
             rmse=_rmse(y_target_test, test_pred),
-            pinball_loss=_pinball_multi(y_target_test, {q: [p + residual_q[q] for p in test_pred] for q in q_levels}),
+            pinball_loss=_pinball_multi(
+                y_target_test,
+                {q: [p + residual_q[q] for p in test_pred] for q in q_levels},
+            ),
             interval_coverage=_coverage(y_target_test, lower, upper),
             interval_avg_width=_avg_width(lower, upper),
         )
@@ -135,7 +140,9 @@ def _read_xy(path: Path) -> tuple[list[str], list[list[float]], list[float]]:
     with path.open("r", newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         fieldnames = reader.fieldnames or []
-        feature_cols = sorted([c for c in fieldnames if c.startswith("lag_")], key=_lag_sort_key)
+        feature_cols = sorted(
+            [c for c in fieldnames if c.startswith("lag_")], key=_lag_sort_key
+        )
         if not feature_cols:
             raise ValueError(f"No lag features found in {path}")
 
@@ -255,7 +262,9 @@ def _pinball_multi(y_true: list[float], q_preds: dict[float, list[float]]) -> fl
 
 
 def _coverage(y_true: list[float], lower: list[float], upper: list[float]) -> float:
-    return sum(1 for y, lo, hi in zip(y_true, lower, upper) if lo <= y <= hi) / len(y_true)
+    return sum(1 for y, lo, hi in zip(y_true, lower, upper) if lo <= y <= hi) / len(
+        y_true
+    )
 
 
 def _avg_width(lower: list[float], upper: list[float]) -> float:

@@ -1,5 +1,5 @@
-import csv
 from collections import defaultdict
+import csv
 from pathlib import Path
 
 from loguru import logger
@@ -32,8 +32,12 @@ def main(
     source_rows = _read_rows(source_input_path)
     target_rows = _read_rows(target_input_path)
 
-    source_features = _build_lag_features(source_rows, series_col, time_col, target_col, lag_count)
-    target_features = _build_lag_features(target_rows, series_col, time_col, target_col, lag_count)
+    source_features = _build_lag_features(
+        source_rows, series_col, time_col, target_col, lag_count
+    )
+    target_features = _build_lag_features(
+        target_rows, series_col, time_col, target_col, lag_count
+    )
 
     target_train, target_test = _split_target_temporal(
         target_features,
