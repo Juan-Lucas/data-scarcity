@@ -90,6 +90,7 @@ make pipeline
 # Etapes complementaires
 make compare_models
 make plot
+make metrics_plots
 
 # Variante grille d'experiences
 make run_experiment
@@ -106,6 +107,7 @@ make predict         # Predire et evaluer
 make compare_models  # Comparer plusieurs modeles
 make run_experiment  # Lancer la grille d'experiences
 make plot            # Generer la figure de confiance
+make metrics_plots   # Generer 3 graphiques de metriques
 make pipeline        # Enchainement standard du pipeline
 make lint            # Verifier le style
 make format          # Formatter le code
@@ -127,6 +129,9 @@ Voir `make help` pour la liste complete des cibles.
 - `data/processed/model_comparison_results.csv`
 - `data/processed/model_comparison_predictions.csv`
 - `reports/figures/test_series_confidence_band.png`
+- `reports/figures/model_metrics_bars.png`
+- `reports/figures/transfer_gain_heatmap.png`
+- `reports/figures/coverage_width_tradeoff.png`
 - `reports/AI2M4RI_PROCS_Template/AI2M4RI_PROCS_Template.tex`
 
 ## Organisation du projet

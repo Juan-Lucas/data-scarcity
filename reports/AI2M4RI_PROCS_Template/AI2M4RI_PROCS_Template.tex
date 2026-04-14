@@ -371,6 +371,8 @@ The shaded band shows the 10\%-90\% predictive interval produced by the transfer
 
 Across the scarcity grid ($0.1$, $0.2$, $0.3$), the same pattern is preserved: baseline and non-linear variants do not dominate the ridge family under this low-data configuration, and transfer regularization remains stable to $\lambda$ changes. This suggests that in early-launch contexts, robust regularized linear structures can be competitive and easier to calibrate than more flexible models when target data is limited.
 
+While the performance gain from transfer regularization is modest, its consistency across scarcity levels suggests that the approach provides a reliable safety net for early-stage replenishment decisions, precisely where more complex models tend to overfit.
+
 Limitations remain. The current implementation uses lag-only features and a single dataset family (M5-derived split \cite{M5ForecastingUncertainty2020}). Therefore, external validity across product categories, promotion regimes, and multi-store transfer settings should be further tested.
 
 \section{Conclusion}

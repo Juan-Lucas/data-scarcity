@@ -3,7 +3,7 @@ PYTHON_VERSION = 3.11
 PYTHON_INTERPRETER = python
 
 .PHONY: requirements clean lint format test create_environment \
-	dataset features train predict compare_models run_experiment plot pipeline help
+	dataset features train predict compare_models run_experiment plot metrics_plots pipeline help
 
 requirements:
 	$(PYTHON_INTERPRETER) -m pip install -U pip
@@ -55,6 +55,10 @@ plot: requirements
 	cmd /c cls
 	$(PYTHON_INTERPRETER) -m data_scarcity.plots --features-path data/processed/target_test_features.csv --predictions-path data/processed/model_comparison_predictions.csv --output-path reports/figures/test_series_confidence_band.png --model-name ridge_transfer
 
+metrics_plots: requirements
+	cmd /c cls
+	$(PYTHON_INTERPRETER) -m data_scarcity.metrics_plots --model-results-path data/processed/model_comparison_results.csv --experiment-grid-path data/processed/experiment_results_grid.csv --output-dir reports/figures
+
 pipeline: dataset features train predict
 	@echo "Pipeline standard termine."
 
@@ -68,6 +72,7 @@ help:
 	@echo "  make compare_models   # Comparer plusieurs modeles"
 	@echo "  make run_experiment   # Lancer la grille d'experiences"
 	@echo "  make plot             # Generer la figure de confiance"
+	@echo "  make metrics_plots    # Generer 3 graphiques de metriques"
 	@echo "  make pipeline         # Enchainement dataset -> features -> train -> predict"
 	@echo "  make lint             # Verifier Ruff + Black"
 	@echo "  make format           # Corriger format/lint automatiquement"
