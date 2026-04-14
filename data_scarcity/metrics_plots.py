@@ -18,9 +18,13 @@ def main(
 ):
     """Generate 3 additional performance visualizations for the article."""
     if not model_results_path.exists():
-        raise FileNotFoundError(f"Model comparison file not found: {model_results_path}")
+        raise FileNotFoundError(
+            f"Model comparison file not found: {model_results_path}"
+        )
     if not experiment_grid_path.exists():
-        raise FileNotFoundError(f"Experiment grid file not found: {experiment_grid_path}")
+        raise FileNotFoundError(
+            f"Experiment grid file not found: {experiment_grid_path}"
+        )
 
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -29,7 +33,9 @@ def main(
 
     _plot_model_metric_bars(model_rows, output_dir / "model_metrics_bars.png")
     _plot_transfer_gain_heatmap(grid_rows, output_dir / "transfer_gain_heatmap.png")
-    _plot_coverage_width_tradeoff(model_rows, output_dir / "coverage_width_tradeoff.png")
+    _plot_coverage_width_tradeoff(
+        model_rows, output_dir / "coverage_width_tradeoff.png"
+    )
 
     logger.success("Additional metrics figures generated in {}", output_dir)
 
@@ -92,7 +98,14 @@ def _plot_transfer_gain_heatmap(rows: list[dict[str, str]], output_path: Path) -
 
     for i in range(len(history_vals)):
         for j in range(len(lambda_vals)):
-            ax.text(j, i, f"{value_grid[i][j]:.4f}", ha="center", va="center", fontsize=8)
+            ax.text(
+                j,
+                i,
+                f"{value_grid[i][j]:.4f}",
+                ha="center",
+                va="center",
+                fontsize=8,
+            )
 
     cbar = fig.colorbar(im, ax=ax)
     cbar.set_label("RMSE gain (positive is better)")
@@ -101,7 +114,9 @@ def _plot_transfer_gain_heatmap(rows: list[dict[str, str]], output_path: Path) -
     plt.close(fig)
 
 
-def _plot_coverage_width_tradeoff(rows: list[dict[str, str]], output_path: Path) -> None:
+def _plot_coverage_width_tradeoff(
+    rows: list[dict[str, str]], output_path: Path
+) -> None:
     models = [r["model"] for r in rows]
     coverages = [float(r["interval_coverage"]) for r in rows]
     widths = [float(r["interval_avg_width"]) for r in rows]
@@ -112,7 +127,13 @@ def _plot_coverage_width_tradeoff(rows: list[dict[str, str]], output_path: Path)
         ax.scatter(width, cov, s=120, alpha=0.85)
         ax.text(width, cov, f" {model}\n p={pin:.3f}", fontsize=8, va="bottom")
 
-    ax.axhline(0.8, color="#dc2626", linestyle="--", linewidth=1.5, label="Target coverage = 0.8")
+    ax.axhline(
+        0.8,
+        color="#dc2626",
+        linestyle="--",
+        linewidth=1.5,
+        label="Target coverage = 0.8",
+    )
     ax.set_xlabel("Average interval width")
     ax.set_ylabel("Interval coverage")
     ax.set_title("Uncertainty Trade-off: Coverage vs Width")
