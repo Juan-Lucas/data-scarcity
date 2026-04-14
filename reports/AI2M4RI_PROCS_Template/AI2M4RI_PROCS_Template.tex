@@ -88,6 +88,14 @@
 %% The amsthm package provides extended theorem environments
 %% \usepackage{amsthm}
 \usepackage{graphicx}
+% Compact float/caption/math spacing to respect strict page limits.
+\setlength{\textfloatsep}{8pt plus 1pt minus 2pt}
+\setlength{\floatsep}{6pt plus 1pt minus 2pt}
+\setlength{\intextsep}{6pt plus 1pt minus 2pt}
+\setlength{\abovecaptionskip}{4pt}
+\setlength{\belowcaptionskip}{2pt}
+\setlength{\abovedisplayskip}{6pt}
+\setlength{\belowdisplayskip}{6pt}
 
 %% The lineno packages adds line numbers. Start line numbering with
 %% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
@@ -287,7 +295,7 @@ The proposed pipeline has four stages.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.9\linewidth]{../figures/Architecture.drawio.png}
+\includegraphics[width=0.84\linewidth]{../figures/Architecture.drawio.png}
 \caption{High-level architecture of the proposed low-data forecasting pipeline.}
 \label{fig:architecture}
 \end{figure}
@@ -343,9 +351,18 @@ Gradient boosting & 1.0544 & 2.6688 & 0.3958 & 0.7717 & 2.1851 \\
 
 The coverage values indicate that ridge-based variants produce uncertainty intervals that are better aligned with the intended 80\% central band. In contrast, random forest intervals are too narrow (low coverage), which can lead to underestimated risk in replenishment decisions. From an operational standpoint, this difference is important: under-covered intervals may reduce planned safety stocks but increase stockout exposure.
 
+To analyze scarcity sensitivity, Figure~\ref{fig:transfer-heatmap} reports the RMSE gain of transfer-regularized ridge over target-only ridge across history fractions and transfer regularization strengths. Positive values indicate improvement from transfer. As expected, the low-history regime remains the most informative for evaluating transfer benefits.
+
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.95\linewidth]{../figures/test_series_confidence_band.png}
+\includegraphics[width=0.82\linewidth]{../figures/transfer_gain_heatmap.png}
+\caption{RMSE gain of transfer-regularized ridge over target-only ridge across scarcity levels and $\lambda$ values.}
+\label{fig:transfer-heatmap}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.86\linewidth]{../figures/test_series_confidence_band.png}
 \caption{Representative target test series with 10\%-90\% predictive band produced by the transfer-regularized ridge model.}
 \label{fig:confidence-band}
 \end{figure}
@@ -353,6 +370,8 @@ The coverage values indicate that ridge-based variants produce uncertainty inter
 The shaded band shows the 10\%-90\% predictive interval produced by the transfer-regularized ridge model, and the observed series remains largely inside it, which is the desired behavior for a risk-aware forecast.
 
 Across the scarcity grid ($0.1$, $0.2$, $0.3$), the same pattern is preserved: baseline and non-linear variants do not dominate the ridge family under this low-data configuration, and transfer regularization remains stable to $\lambda$ changes. This suggests that in early-launch contexts, robust regularized linear structures can be competitive and easier to calibrate than more flexible models when target data is limited.
+
+While the performance gain from transfer regularization is modest, its consistency across scarcity levels suggests that the approach provides a reliable safety net for early-stage replenishment decisions, precisely where more complex models tend to overfit.
 
 Limitations remain. The current implementation uses lag-only features and a single dataset family (M5-derived split \cite{M5ForecastingUncertainty2020}). Therefore, external validity across product categories, promotion regimes, and multi-store transfer settings should be further tested.
 
