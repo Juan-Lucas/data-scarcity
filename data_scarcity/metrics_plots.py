@@ -1,8 +1,8 @@
 import csv
 from pathlib import Path
 
-import matplotlib.pyplot as plt
 from loguru import logger
+import matplotlib.pyplot as plt
 import typer
 
 from data_scarcity.config import FIGURES_DIR, PROCESSED_DATA_DIR
